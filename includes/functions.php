@@ -3,6 +3,7 @@
 include(__DIR__."/../../_settings/config.php");
 include(__DIR__."/../classes/ChartService.class.php");
 include(__DIR__."/../classes/Counter.class.php");
+include(__DIR__."/../../composer/vendor/autoload.php");
 
 /******************************************************************************
 * PDO DATABASE

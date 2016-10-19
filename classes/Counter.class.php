@@ -6,14 +6,14 @@ class Counter
  public $symbol;
  public $session;
  public $timezone;
- public $pointvalue;
- public $pricescale;
- public $minmov;
- public $minmov2;
- public $has_seconds;
- public $has_intraday;
- public $has_daily;
- public $has_no_volume;
+ public $pointvalue; // Integer
+ public $pricescale; // Integer
+ public $minmov; // Integer
+ public $minmov2; // Integer
+ public $has_seconds; // Boolean
+ public $has_intraday; // Boolean
+ public $has_daily; // Boolean
+ public $has_no_volume; // Boolean
  
  public $seconds_multipliers;
  public $intraday_multipliers;
@@ -68,14 +68,14 @@ class Counter
    $this->ticker = $counter[symbol];
    $this->session = $counter[session];
    $this->timezone = $counter[timezone];
-   $this->pointvalue = $counter[pointvalue];
-   $this->pricescale = $counter[pricescale];
-   $this->minmov = $counter[minmov];
-   $this->minmov2 = $counter[minmov2];
-   $this->has_seconds = $counter[has_seconds];
-   $this->has_intraday = $counter[has_intraday];
-   $this->has_daily = $counter[has_daily];
-   $this->has_no_volume = $counter[has_no_volume];
+   $this->pointvalue = (int) $counter[pointvalue];
+   $this->pricescale = (int) $counter[pricescale];
+   $this->minmov = (int) $counter[minmov];
+   $this->minmov2 = (int) $counter[minmov2];
+   $this->has_seconds = $counter[has_seconds] ? true : false; // Boolean
+   $this->has_intraday = $counter[has_intraday] ? true : false; // Boolean
+   $this->has_daily = $counter[has_daily] ? true : false; // Boolean
+   $this->has_no_volume = $counter[has_no_volume] ? true : false; // Boolean
   }
  }
 }
