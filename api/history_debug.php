@@ -16,7 +16,10 @@ if (!$from && $to)
 /******************************************************************************
 * FETCH SYMBOL
 ******************************************************************************/
-$chart = new ChartService($PDO);
+include(__DIR__."/../classes/ChartService2.class.php");
+
+$chart = new ChartService2($PDO);
+$chart->debugmode = true;
 $chart->setSymbol($symbol);
 $chart->setResolution($resolution);
 $chart->getHistoricalData($from, $to);

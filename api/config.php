@@ -18,7 +18,19 @@ $config->supports_timescale_marks = false;
 $config->supports_time = true;
 $config->exchanges = array();
 $config->symbolsTypes = array();
-$config->supportedResolutions = array("1S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");
+
+switch ($accesstype)
+{
+ case "loggedin":
+   $config->supportedResolutions = array("5S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");
+   break;
+   
+ //-----------------------------------------------------------------------------
+ default:
+   $config->supportedResolutions = array("1", "5", "15", "30", "60", "1D", "1W", "1M");
+   //$config->supportedResolutions = array("5S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");
+   break;
+}
 
 /******************************************************************************
 * EXCHANGES
@@ -27,22 +39,24 @@ $config->exchanges[] = array("value"=>"","name"=>"All Exchanges","desc"=>"All Ex
 $config->symbolsTypes[] = array("name"=>"All Types","value"=>"");
 
 $query = "SELECT exchangeid, name, description, symboltype, symboltype_description FROM exchange";
-$stmt = $DB->query($query);
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-{
- $exchange = array();
- $exchange[name] = $row[name];
- $exchange[value] = $row[exchangeid];
- $exchange[desc] = $row[description];
- 
- $symboltype = array();
- $symboltype[name] = $row[symboltype_description];
- $symboltype[value] = $row[symboltype];
- 
- $config->exchanges[] = $exchange;
- $config->symbolsTypes[] = $symboltype;
-}
 
-echo json_encode($config, JSON_PRETTY_PRINT);
+if ($stmt = $DB->query($query))
+{
+ while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+ {
+  $exchange = array();
+  $exchange[name] = $row[name];
+  $exchange[value] = $row[exchangeid];
+  $exchange[desc] = $row[description];
+  
+  $symboltype = array();
+  $symboltype[name] = $row[symboltype_description];
+  $symboltype[value] = $row[symboltype];
+  
+  $config->exchanges[] = $exchange;
+  $config->symbolsTypes[] = $symboltype;
+ } 
+ echo json_encode($config, JSON_PRETTY_PRINT);
+}
 
 ?>

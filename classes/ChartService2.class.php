@@ -1,6 +1,6 @@
 <?php
 
-class ChartService
+class ChartService2
 {
  public $symbol;
  public $resolution;
@@ -125,7 +125,7 @@ class ChartService
  }
  
  //-----------------------------------------------------------------------------
- private function _generateUDF($data, $debuginfo = false)
+ private function _generateUDF($data)
  {
   $output = new stdClass();
   
@@ -162,11 +162,6 @@ class ChartService
     $output->s = "no_data";      
    }   
   } 
-  
-  if ($debuginfo)
-  {
-   $output->debuginfo = $debuginfo;
-  }
   
   return json_encode($output, JSON_PRETTY_PRINT);
  }

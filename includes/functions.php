@@ -2,8 +2,14 @@
 
 include(__DIR__."/../../_settings/config.php");
 include(__DIR__."/../classes/ChartService.class.php");
-include(__DIR__."/../classes/Counter.class.php");
+include(__DIR__."/../classes/Symbol.class.php");
 include(__DIR__."/../../composer/vendor/autoload.php");
+
+/******************************************************************************
+* ONLY ALLOW EXISTING DOMAIN TO ACCESS
+******************************************************************************/
+header('Access-Control-Allow-Origin: https://' . $_SERVER[HTTP_HOST]);
+//header('Access-Control-Allow-Origin: *');
 
 /******************************************************************************
 * PDO DATABASE
@@ -17,6 +23,22 @@ try
 catch (PDOException $e)
 {
  echo "Database Connection Error: " . $e->getMessage();
+}
+
+/******************************************************************************
+* SESSION START 
+******************************************************************************/
+session_start();
+
+/******************************************************************************
+* ACCESS TYPE (default/loggedin) 
+******************************************************************************/
+$accesstype = "default";
+
+if ($_SESSION["chartsettings"])
+{
+ $accesstype = "loggedin"; 
+ $chartsettings = $_SESSION["chartsettings"]; 
 }
 
 ?>
