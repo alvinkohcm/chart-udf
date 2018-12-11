@@ -22,13 +22,13 @@ $config->symbolsTypes = array();
 switch ($accesstype)
 {
  case "loggedin":
-   $config->supportedResolutions = array("5S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");
+   $config->supported_resolutions = array("5S","10S", "30S","1", "3", "5", "15", "30", "45", "60", "120", "180", "240", "1D", "1W", "1M");
    break;
    
  //-----------------------------------------------------------------------------
  default:
-   $config->supportedResolutions = array("1", "5", "15", "30", "60", "1D", "1W", "1M");
-   //$config->supportedResolutions = array("5S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");
+   //$config->supported_resolutions = array("1", "3", "5", "15", "30", "45", "60", "120", "180", "240", "1D", "1W", "1M");
+   $config->supported_resolutions = array("60", "120", "180", "240", "1D", "1W", "1M");
    break;
 }
 

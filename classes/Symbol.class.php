@@ -38,8 +38,7 @@ class Symbol
   $this->seconds_multipliers = array("1");
   $this->intraday_multipliers = array("1");
   $this->has_weekly_and_monthly = false;   
-  //$this->supported_resolutions = array("1", "5", "15", "30", "60", "1D", "1W", "1M");    
-  $this->supported_resolutions = array("5S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");    
+  $this->supported_resolutions = array("5S","10S", "30S","1", "3", "5", "15", "30", "45", "60", "120", "180", "240", "1D", "1W", "1M");
  }
  
  //-----------------------------------------------------------------------------
@@ -74,7 +73,7 @@ class Symbol
    $this->exchange = $row[exchange_description];
    $this->listed_exchange = $row[exchange_description];
    
-   $this->symbol = $row[name];
+   $this->symbol = $row[symbol];
    $this->ticker = $row[symbol];
    $this->session = $row[session];
    $this->timezone = $row[timezone];
@@ -92,7 +91,7 @@ class Symbol
    switch($accesstype) // Show more resolutions for Logged in users
    {
     case "loggedin":
-      $this->supported_resolutions = array("5S","10S", "30S","1", "5", "15", "30", "60", "1D", "1W", "1M");   
+      $this->supported_resolutions = array("5S","10S", "30S","1", "3", "5", "15", "30", "45", "60", "120", "180", "240", "1D", "1W", "1M");
       break;
    }     
   }

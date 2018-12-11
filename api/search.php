@@ -40,13 +40,16 @@ if ($_GET['exchange'])
 * CUSTOM COUNTERS / DETERMINE IF KEYWORDS MATCH ANY CUSTOM COUNTERIDs
 ******************************************************************************/
 if ($counters = $_SESSION['chartsettings']['counters'])
-{ 
- foreach ($counters AS $counterid => $symbol)
+{
+ if ($_GET['query'])
  {
-  // Search based on custom counterid
-  if(strpos($counterid, $_GET['query']) !== false) // Must use === operator
+  foreach ($counters AS $counterid => $symbol)
   {
-   $search_counters[$counterid] = $symbol;
+   // Search based on custom counterid
+   if(strpos($counterid, $_GET['query']) !== false) // Must use === operator
+   {
+    $search_counters[$counterid] = $symbol;
+   }
   }
  }
 
