@@ -28,6 +28,8 @@ catch (PDOException $e)
 /******************************************************************************
 * SESSION START 
 ******************************************************************************/
+// session_name("CHARTSESSID");
+// session_set_cookie_params(0, "/;SameSite=None;", "charts.tradeprofx.com", $secure = TRUE);
 session_start();
 
 /******************************************************************************

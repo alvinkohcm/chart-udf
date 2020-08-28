@@ -1,6 +1,6 @@
 <?php
 
-class ChartService
+class ChartServiceDebug
 {
  public $symbol;
  public $resolution;
@@ -74,7 +74,7 @@ class ChartService
    $this->from = $from;
    $this->to = $to;   
   }
-  
+
   switch($this->resolution_type)
   {
    case "days":
@@ -88,7 +88,7 @@ class ChartService
               WHERE
               symbol = :symbol
               AND utcdatetime BETWEEN FROM_UNIXTIME(:from) AND FROM_UNIXTIME(:to)
-              ";   
+              ";                      
               
      $stmt = $this->DB->prepare($query);
      $stmt->execute([
@@ -97,11 +97,27 @@ class ChartService
         "to" => $this->to
      ]);
      
+     
+     $query_render = "SELECT
+              unixtime,
+              close, high, low, open
+              FROM {$this->datasource}
+              WHERE
+              symbol = '{$this->symbol}'
+              AND utcdatetime BETWEEN FROM_UNIXTIME({$this->from}) AND FROM_UNIXTIME({$this->to})
+              ";
+     
      while ($row = $stmt->fetchObject()) // Fetch Object to retain value type (float).
-     {
+     {     
       $unixtime = $row->unixtime;
-      if ($session_offset) { $unixtime -= $session_offset; }
+         
+      if ($session_offset) { $unixtime += $session_offset; }
+
+      echo "Before: $unixtime (".date("Ymd H:i:s", $unixtime).")" . PHP_EOL;
+
       $unixtime = (new DateTime((new DateTime())->setTimestamp($unixtime + (24 * 3600))->format("Y-m-d")))->format("U");
+      
+      echo "After: $unixtime (".date("Ymd H:i:s", $unixtime).")" . PHP_EOL . PHP_EOL;
       
       if (!$data[$unixtime])
       {

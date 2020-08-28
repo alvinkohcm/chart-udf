@@ -16,9 +16,9 @@ if (!$from && $to)
 /******************************************************************************
 * FETCH SYMBOL
 ******************************************************************************/
-include(__DIR__."/../classes/ChartService2.class.php");
+include(__DIR__."/../classes/ChartServiceDebug.class.php");
 
-$chart = new ChartService2($PDO);
+$chart = new ChartServiceDebug($PDO);
 $chart->debugmode = true;
 $chart->setSymbol($symbol);
 $chart->setResolution($resolution);
